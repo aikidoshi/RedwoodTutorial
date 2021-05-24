@@ -1,3 +1,5 @@
+// api/src/services/posts/posts.js
+
 import { db } from 'src/lib/db'
 import { requireAuth } from 'src/lib/auth'
 
@@ -31,4 +33,9 @@ export const deletePost = ({ id }) => {
   return db.post.delete({
     where: { id },
   })
+}
+
+export const Post = {
+  user: (_obj, { root }) =>
+    db.post.findUnique({ where: { id: root.id } }).user(),
 }
